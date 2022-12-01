@@ -36,8 +36,7 @@
       },
       createCard(event) {
         event.preventDefault();
-        console.log(this.content);
-
+        
         let data = new FormData();
         data.append("card[list_id]",this.list.id);
         data.append("card[name]",this.content);
