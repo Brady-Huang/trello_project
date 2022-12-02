@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import Rails from "@rails/ujs"
+  import Rails from "@rails/ujs";
   import Card from 'components/card';
   import draggable from 'vuedraggable';
   export default {
@@ -93,7 +93,7 @@
     @apply border-2 border-gray-400 border-dashed bg-gray-200;
   }
   .list {
-    @apply bg-gray-300 mx-2 w-64 rounded px-3 py-1;
+    @apply bg-gray-300 mx-2 w-64 rounded px-3 py-2 flex-none h-full;
 
     .header {
       @apply font-bold;
