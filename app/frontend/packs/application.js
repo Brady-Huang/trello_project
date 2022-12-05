@@ -8,6 +8,7 @@ import "../styles/"
 //vue.js
 import Vue from 'vue/dist/vue.esm';
 import List from 'components/list';
+import Newlist from 'components/new_list';
 import draggable from 'vuedraggable';
 import store from 'stores/list';
 import {mapGetters, mapActions } from 'vuex';
@@ -27,7 +28,7 @@ document.addEventListener("turbolinks:load", function(event) {
           }
         }
       },
-      components: { List,draggable },
+      components: { List,draggable,Newlist },
       methods: {
         ...mapActions(["loadList","moveList"]),
 

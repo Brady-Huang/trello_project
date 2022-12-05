@@ -1,14 +1,19 @@
 <template>
   <div class="list">
-    <h2 class="header">{{ list.name }}</h2>
-
+    <header>
+      <h2 class="header">{{ list.name }}</h2>
+      <a href="#" @click="deleteList">
+        <i class="far fa-trash-alt"></i>
+      </a>
+    </header>
+    
     <div class="deck">
       <draggable v-model="cards" ghost-class="ghost" group="list" @change="cardMoved">
         <Card v-for="card in cards" :card="card" :key="card.id"></Card>
       </draggable>
       <div class="input-area">
           <button v-if="!editing" class="button bg-blue-400" @click="newCard">新增卡片</button>
-          <textarea v-if="editing" class="content" v-model="content"></textarea>
+          <textarea v-model="content" ref="content" v-if="editing" class="content"></textarea>
           <button v-if="editing" class="button bg-green-400" @click="createCard">建立卡片</button>
           <button v-if="editing" class="button button bg-red-400" @click="editing=false">取消</button>
       </div>
@@ -32,6 +37,12 @@
         }
     },
     methods: {
+      deleteList(event) {
+        event.preventDefault();
+        if (confirm('確認刪除列表？')){
+          this.$store.dispatch('removeList',this.list.id);
+        }
+      },
       cardMoved(event) {
         console.log(event);
         let evt = event.added || event.moved;
@@ -60,6 +71,9 @@
       newCard(event) {
         event.preventDefault();
         this.editing = true;
+        this.$nextTick( () => {
+          this.$refs.content.focus();
+        })
       },
       createCard(event) {
         event.preventDefault();
@@ -117,5 +131,8 @@
         }
       }
     }
+  }
+  header {
+   @apply flex justify-between items-center;
   }
 </style>
