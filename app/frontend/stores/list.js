@@ -11,6 +11,7 @@ export default new Vuex.Store({
     lists: state => state.lists
   },
   mutations: {
+  
     UPDATE_LISTS(state, lists) {
       state.lists = lists;
     },
@@ -34,9 +35,6 @@ export default new Vuex.Store({
         url: `/lists/${list_id}`,
         type: 'DELETE',
         dataType: 'json',
-        success: resp => {
-          commit('REMOVE_LIST',list_id);
-        },
         error: err => {
           console.log(err);
         }
@@ -51,9 +49,6 @@ export default new Vuex.Store({
         type: "POST",
         data,
         dataType: 'json',
-        success: resp => {
-          commit('ADD_LIST',resp)
-        },
         error: err => {
           console.log(err);
         }
@@ -68,17 +63,15 @@ export default new Vuex.Store({
         type: 'PUT',
         data,
         dataType: 'json',
-        success: resp => {
-          commit('REPLACE_CARD',resp);
-        },
         error: err => {
           console.log(err);
         }
       })
     },
     moveList({ commit, state },event) {
-    let data = new FormData();
-      data.append("list[position]",event.moved.newIndex + 1)
+      let data = new FormData();
+      data.append("list[position]",event.moved.newIndex + 1);
+  
       Rails.ajax({
         // /lists/2/move
         url: `/lists/${state.lists[event.moved.newIndex].id}/move`,

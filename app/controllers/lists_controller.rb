@@ -17,6 +17,7 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
+        ActionCable.server.broadcast("board", {commit: 'ADD_LIST', payload: render_to_string(:show, format: :json)})
         format.html { redirect_to list_url(@list), notice: "List was successfully created." }
         format.json { render :show, status: :created, location: @list }
       else
@@ -40,7 +41,7 @@ class ListsController < ApplicationController
 
   def destroy
     @list.destroy
-
+    ActionCable.server.broadcast("board", {commit: 'REMOVE_LIST', payload: render_to_string(:show, format: :json)})
     respond_to do |format|
       format.html { redirect_to lists_url, notice: "List was successfully destroyed." }
       format.json { head :no_content }

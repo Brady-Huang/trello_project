@@ -43,6 +43,7 @@
           this.$store.dispatch('removeList',this.list.id);
         }
       },
+
       cardMoved(event) {
         console.log(event);
         let evt = event.added || event.moved;
@@ -53,15 +54,15 @@
           let data = new FormData();
           data.append("card[list_id]",this.list.id);
           data.append("card[position]",evt.newIndex + 1);
-          
+
           Rails.ajax({
             url: `/cards/${card_id}/move`,
             type: 'PUT',
             data,
             dataType: 'json',
-            success: resp => {
-              console.log(resp);
-            },
+            // success: resp => {
+            //   console.log(resp);
+            // },
             error: err => {
               console.log(err);
             }

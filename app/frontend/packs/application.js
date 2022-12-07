@@ -15,6 +15,7 @@ import {mapGetters, mapActions } from 'vuex';
 document.addEventListener("turbolinks:load", function(event) {
   let el = document.querySelector('#board');
   if (el) {
+    window.$store = store;
     new Vue({
       el,
       store,
@@ -24,6 +25,7 @@ document.addEventListener("turbolinks:load", function(event) {
             return this.$store.state.lists;
           },
           set(value) {
+            
             this.$store.commit("UPDATE_LISTS", value);
           }
         }
